@@ -45,7 +45,15 @@ public class RabbitAI : MonoBehaviour
         }
     }
 
-    /*void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-    }*/
+        if(collision.gameObject.tag == "Player")
+        {
+            GameManager.instance.IncrementRabbitCount();
+
+            Destroy(this.gameObject,0.2f);
+            
+        }
+        
+    }
 }

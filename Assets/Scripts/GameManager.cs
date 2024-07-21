@@ -9,13 +9,17 @@ public class GameManager : MonoBehaviour
 
 
     [SerializeField] private TMP_Text coinText;
+    [SerializeField] private TMP_Text rabbitText;
 
     [SerializeField] private PlayerController playerController;
 
     private int coinCount = 0;
+    private int rabbitCount = 0;
     private int gemCount = 0;
     private bool isGameOver = false;
     private Vector3 playerPosition;
+
+    public GameObject RabbitPrefab;
 
     //Level Complete
 
@@ -43,6 +47,7 @@ public class GameManager : MonoBehaviour
         UpdateGUI();
         UIManager.instance.fadeFromBlack = true;
         playerPosition = playerController.transform.position;
+        PopRabbit();
 
         FindTotalPickups();
     }
@@ -52,6 +57,13 @@ public class GameManager : MonoBehaviour
         coinCount++;
         UpdateGUI();
     }
+
+    public void IncrementRabbitCount()
+    {
+        rabbitCount++;
+        UpdateGUI();
+    }
+
     public void IncrementGemCount()
     {
         gemCount++;
@@ -61,7 +73,7 @@ public class GameManager : MonoBehaviour
     private void UpdateGUI()
     {
         coinText.text = coinCount.ToString();
-  
+        rabbitText.text = rabbitCount.ToString();
     }
 
     public void Death()
@@ -84,6 +96,20 @@ public class GameManager : MonoBehaviour
 
             // Log death message
             Debug.Log("Died");
+        }
+    }
+
+    public void PopRabbit()
+    {
+        int numberOfRabbits = 10;
+        for (int i = 0; i < numberOfRabbits; i++)
+        {
+            float xPosition = Random.Range(-20f, 20f);
+            float yPosition = Random.Range(-5f, -3f);
+
+            Vector3 spawnPosition = new Vector3(xPosition, yPosition, 0);
+
+            Instantiate(RabbitPrefab, spawnPosition, Quaternion.identity);
         }
     }
  
