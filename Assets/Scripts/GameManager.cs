@@ -17,18 +17,19 @@ public class GameManager : MonoBehaviour
     private int rabbitCount = 0;
     private int gemCount = 0;
     private bool isGameOver = false;
+    private bool popRabbit = true;
     private Vector3 playerPosition;
 
     public GameObject RabbitPrefab;
     public GameObject LevelCompleteDoor;
+    public GameObject RabbitSpawnLeftLimit;
+    public GameObject RabbitSpawnRightLimit;
 
     //Level Complete
 
     [SerializeField] GameObject levelCompletePanel;
     [SerializeField] TMP_Text leveCompletePanelTitle;
     [SerializeField] TMP_Text levelCompleteCoins;
-
-
 
 
    
@@ -48,9 +49,20 @@ public class GameManager : MonoBehaviour
         UpdateGUI();
         UIManager.instance.fadeFromBlack = true;
         playerPosition = playerController.transform.position;
-        PopRabbit();
+        PopRabbits();
 
         FindTotalPickups();
+        StartCoroutine(CallPopRabbitPeriodically());
+    }
+
+    private IEnumerator CallPopRabbitPeriodically()
+    {
+        while (popRabbit) 
+        {
+            yield return new WaitForSeconds(Random.Range(1f, 4f));
+            int randomNumber = UnityEngine.Random.Range(1, 4);
+            PopRabbits(randomNumber);
+        }
     }
 
     private void Update()
@@ -103,23 +115,29 @@ public class GameManager : MonoBehaviour
             // Update game state
             isGameOver = true;
 
+            popRabbit = true;
+
             // Log death message
             Debug.Log("Died");
         }
     }
 
-    public void PopRabbit()
+    public void PopRabbits(int numberOfRabbits = 10)
     {
-        int numberOfRabbits = 10;
         for (int i = 0; i < numberOfRabbits; i++)
         {
-            float xPosition = Random.Range(-20f, 20f);
-            float yPosition = Random.Range(0f, 5f);
-
-            Vector3 spawnPosition = new Vector3(xPosition, yPosition, 0);
-
-            Instantiate(RabbitPrefab, spawnPosition, Quaternion.identity);
+            PopRabbit();
         }
+    }
+
+    public void PopRabbit()
+    {
+        float xPosition = Random.Range(RabbitSpawnLeftLimit.transform.position.x, RabbitSpawnRightLimit.transform.position.x);
+        float yPosition = Random.Range(0f, 5f);
+
+        Vector3 spawnPosition = new Vector3(xPosition, yPosition, 0);
+
+        Instantiate(RabbitPrefab, spawnPosition, Quaternion.identity);      
     }
  
     public void FindTotalPickups()
@@ -143,7 +161,7 @@ public class GameManager : MonoBehaviour
     {
        
 
-
+        popRabbit = false;
         levelCompletePanel.SetActive(true);
         leveCompletePanelTitle.text = "NIVEAU TERMINE";
 
