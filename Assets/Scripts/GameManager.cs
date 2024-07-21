@@ -114,7 +114,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < numberOfRabbits; i++)
         {
             float xPosition = Random.Range(-20f, 20f);
-            float yPosition = Random.Range(-5f, -3f);
+            float yPosition = Random.Range(0f, 5f);
 
             Vector3 spawnPosition = new Vector3(xPosition, yPosition, 0);
 
