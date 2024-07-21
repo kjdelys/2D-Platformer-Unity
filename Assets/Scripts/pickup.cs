@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class pickup : MonoBehaviour
 {
-    public enum pickupType { coin,gem,health}
+    public enum pickupType { coin, gem, health }
 
     public pickupType pt;
     [SerializeField] GameObject PickupEffect;
