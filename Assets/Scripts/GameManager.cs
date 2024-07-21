@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     private Vector3 playerPosition;
 
     public GameObject RabbitPrefab;
+    public GameObject LevelCompleteDoor;
 
     //Level Complete
 
@@ -50,6 +51,14 @@ public class GameManager : MonoBehaviour
         PopRabbit();
 
         FindTotalPickups();
+    }
+
+    private void Update()
+    {
+        if (rabbitCount > 5)
+        {
+            LevelCompleteDoor.SetActive(true);
+        }
     }
 
     public void IncrementCoinCount()
@@ -136,11 +145,11 @@ public class GameManager : MonoBehaviour
 
 
         levelCompletePanel.SetActive(true);
-        leveCompletePanelTitle.text = "LEVEL COMPLETE";
+        leveCompletePanelTitle.text = "NIVEAU TERMINE";
 
 
 
-        levelCompleteCoins.text = "COINS COLLECTED: "+ coinCount.ToString() +" / " + totalCoins.ToString();
+        levelCompleteCoins.text = "PIECES RAMASSEES : "+ coinCount.ToString() +" / " + totalCoins.ToString();
  
     }
    
