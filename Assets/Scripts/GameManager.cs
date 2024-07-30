@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TMP_Text coinText;
     [SerializeField] private TMP_Text rabbitText;
+    [SerializeField] private TMP_Text wordText;
 
     [SerializeField] private PlayerController playerController;
 
@@ -25,6 +26,9 @@ public class GameManager : MonoBehaviour
     public GameObject RabbitSpawnLeftLimit;
     public GameObject RabbitSpawnRightLimit;
 
+    private string[] randomWords = new string[] { "TORO", "GIBBON" };
+    private string currentWord = "Default";
+
     //Level Complete
 
     [SerializeField] GameObject levelCompletePanel;
@@ -34,8 +38,11 @@ public class GameManager : MonoBehaviour
 
    
     private int totalCoins = 0;
-  
 
+    public static string GetCurrentWord()
+    {
+        return instance.currentWord;
+    }
 
 
     private void Awake()
@@ -53,6 +60,14 @@ public class GameManager : MonoBehaviour
 
         FindTotalPickups();
         StartCoroutine(CallPopRabbitPeriodically());
+
+        SetRandomWord();
+    }
+
+    private void SetRandomWord()
+    {
+        currentWord = randomWords[Random.Range(0, randomWords.Length)];
+        wordText.text = currentWord;  // Mettre à jour le texte du mot aléatoire
     }
 
     private IEnumerator CallPopRabbitPeriodically()
