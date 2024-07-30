@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class pickup : MonoBehaviour
 {
-    public enum pickupType { coin, gem, health }
+    public enum pickupType { coin, gem, health, letter }
 
     public pickupType pt;
     [SerializeField] GameObject PickupEffect;
@@ -31,6 +31,18 @@ public class pickup : MonoBehaviour
             {
                 GameManager.instance.IncrementGemCount();
             
+                Instantiate(PickupEffect, transform.position, Quaternion.identity);
+
+                Destroy(this.gameObject, 0.2f);
+
+            }
+
+        }
+
+        if (pt == pickupType.letter)
+        {
+            if (collision.gameObject.tag == "Player")
+            {
                 Instantiate(PickupEffect, transform.position, Quaternion.identity);
 
                 Destroy(this.gameObject, 0.2f);

@@ -77,4 +77,12 @@ public class FloatingGift : MonoBehaviour
             randomLetter = currentWord[Random.Range(0, currentWord.Length)];
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            GameManager.instance.AddLetter(randomLetter);
+        }
+    }
 }

@@ -10,8 +10,11 @@ public class ExitTrigger : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            StartCoroutine("LevelExit");
-            collision.gameObject.SetActive(false);
+            if (GameManager.instance.WordCompleted)
+            {
+                StartCoroutine("LevelExit");
+                collision.gameObject.SetActive(false);
+            }
         }
     }
 

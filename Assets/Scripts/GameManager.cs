@@ -44,6 +44,30 @@ public class GameManager : MonoBehaviour
         return instance.currentWord;
     }
 
+    public bool WordCompleted { get; private set; } = false;
+
+    public void AddLetter(char letter)
+    {
+        char[] wordDisplayArray = wordText.text.ToCharArray(); // Convertissez le texte actuel en tableau de caractères
+
+        // Parcourez chaque caractère dans currentWord pour voir si la lettre ajoutée correspond
+        for (int i = 0; i < currentWord.Length; i++)
+        {
+            if (currentWord[i] == letter && wordDisplayArray[i] == '_') // Vérifiez si la lettre correspond et si la position est encore non complétée
+            {
+                wordDisplayArray[i] = letter; // Remplacez le tiret bas par la lettre
+                break; // Arrêtez la boucle après avoir placé la lettre pour la première fois
+            }
+        }
+
+        wordText.text = new string(wordDisplayArray); // Convertissez le tableau de caractères de retour en chaîne et mettez à jour l'affichage
+        CheckWordCompletion();
+    }
+
+    /*private void UpdateWordDisplay()
+    {
+        wordText.text = currentWord;
+    }*/
 
     private void Awake()
     {
@@ -64,10 +88,15 @@ public class GameManager : MonoBehaviour
         SetRandomWord();
     }
 
+    private void CheckWordCompletion()
+    {
+        WordCompleted = (wordText.text.IndexOf('_') == -1); // Vérifie si toutes les positions sont remplies (aucun '_' trouvé)
+    }
+    
     private void SetRandomWord()
     {
         currentWord = randomWords[Random.Range(0, randomWords.Length)];
-        wordText.text = currentWord;  // Mettre à jour le texte du mot aléatoire
+        wordText.text = new string('_', currentWord.Length);  // Mettre à jour le texte du mot aléatoire
     }
 
     private IEnumerator CallPopRabbitPeriodically()
