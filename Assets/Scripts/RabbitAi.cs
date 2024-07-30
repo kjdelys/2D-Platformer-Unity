@@ -5,6 +5,7 @@ public class RabbitAI : MonoBehaviour
 {
     public float moveSpeed = 10.0f;
     public float directionChangeInterval = 0.1f;
+    public GameObject gift;
     private Rigidbody2D rb;
     private Animator animator;
     private Vector2 movement;
@@ -50,7 +51,7 @@ public class RabbitAI : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             GameManager.instance.IncrementRabbitCount();
-
+            Instantiate(gift, new Vector2(transform.position.x, transform.position.y + 3), Quaternion.identity); 
             Destroy(this.gameObject,0.2f);
             
         }
