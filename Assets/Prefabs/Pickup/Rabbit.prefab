@@ -52,6 +52,7 @@ MonoBehaviour:
   moveSpeed: 20
   directionChangeInterval: 1
   gift: {fileID: 3658722155380845051, guid: edd02653228e24780ab73bec989bfbfc, type: 3}
+  clock: {fileID: 3658722155380845051, guid: 31d7ebcb504ba4ebd8a0dfa0b01dbb72, type: 3}
 --- !u!212 &-24733806444847687
 SpriteRenderer:
   m_ObjectHideFlags: 0
