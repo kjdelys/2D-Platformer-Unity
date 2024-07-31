@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     private string[] randomWords = new string[] { "PRALINES", "FRAMBOISE" };
     private string currentWord = "Default";
 
-    private float levelTimer = 30.0f;
+    public float levelTimer = 30.0f;
 
     [SerializeField] GameObject levelCompletePanel;
     [SerializeField] TMP_Text leveCompletePanelTitle;

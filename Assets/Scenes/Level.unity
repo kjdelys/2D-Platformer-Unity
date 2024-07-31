@@ -27336,6 +27336,7 @@ MonoBehaviour:
   LevelCompleteDoor: {fileID: 1216249946}
   RabbitSpawnLeftLimit: {fileID: 454624132}
   RabbitSpawnRightLimit: {fileID: 2134604910}
+  levelTimer: 40
   levelCompletePanel: {fileID: 417105073}
   leveCompletePanelTitle: {fileID: 515162515}
   levelCompleteCoins: {fileID: 1400149914}
