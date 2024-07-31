@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
     public Animator playeranim;
 
     public Controls controlmode;
-   
 
     private float moveX;
     public bool isPaused = false;
@@ -34,18 +33,11 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem ImpactEffect;
     private bool wasonGround;
 
-
    // public GameObject projectile;
    // public Transform firePoint;
 
     public float fireRate = 0.5f; // Time between each shot
     private float nextFireTime = 0f; // Time of the next allowed shot
-
-
-    
-
-
-
 
     private void Start()
     {

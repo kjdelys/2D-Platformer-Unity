@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-
     [SerializeField] private TMP_Text coinText;
     [SerializeField] private TMP_Text rabbitText;
     [SerializeField] private TMP_Text wordText;
@@ -26,16 +25,15 @@ public class GameManager : MonoBehaviour
     public GameObject RabbitSpawnLeftLimit;
     public GameObject RabbitSpawnRightLimit;
 
-    private string[] randomWords = new string[] { "TORO", "GIBBON" };
+    private string[] randomWords = new string[] { "PRALINES", "FRAMBOISE" };
     private string currentWord = "Default";
 
-    //Level Complete
+    private float levelTimer = 30.0f;
 
     [SerializeField] GameObject levelCompletePanel;
     [SerializeField] TMP_Text leveCompletePanelTitle;
     [SerializeField] TMP_Text levelCompleteCoins;
-
-
+    [SerializeField] private TMP_Text timerText;
    
     private int totalCoins = 0;
 
@@ -86,13 +84,27 @@ public class GameManager : MonoBehaviour
         StartCoroutine(CallPopRabbitPeriodically());
 
         SetRandomWord();
+
+        StartCoroutine(LevelTimer());
+    }
+
+    private IEnumerator LevelTimer()
+    {
+        while (levelTimer > 0)
+        {
+            timerText.text = "Time: " + levelTimer.ToString("0");
+            yield return new WaitForSeconds(1.0f);
+            levelTimer -= 1.0f;
+        }
+
+        Death();
     }
 
     private void CheckWordCompletion()
     {
         WordCompleted = (wordText.text.IndexOf('_') == -1); // Vérifie si toutes les positions sont remplies (aucun '_' trouvé)
     }
-    
+
     private void SetRandomWord()
     {
         currentWord = randomWords[Random.Range(0, randomWords.Length)];
@@ -139,6 +151,7 @@ public class GameManager : MonoBehaviour
     {
         coinText.text = coinCount.ToString();
         rabbitText.text = rabbitCount.ToString();
+        timerText.text = "Time: " + levelTimer.ToString("0");
     }
 
     public void Death()
@@ -201,6 +214,7 @@ public class GameManager : MonoBehaviour
 
       
     }
+
     public void LevelComplete()
     {
        
@@ -231,5 +245,6 @@ public class GameManager : MonoBehaviour
             
         }
     }
+
 
 }
